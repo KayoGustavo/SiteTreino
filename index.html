@@ -92,67 +92,41 @@ body {
 .nav-btn.active { color: var(--white); border-bottom-color: var(--red); }
 
 /* SECTION SHARED */
-.section {
-  padding: 60px 36px;
-  border-bottom: 1px solid var(--border);
-}
+.section { padding: 60px 36px; border-bottom: 1px solid var(--border); }
 .eyebrow {
   font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
   color: var(--red); font-weight: 600; margin-bottom: 8px;
 }
 .sec-title {
   font-family: var(--font-d);
-  font-size: clamp(36px, 5vw, 60px); line-height: 1;
-  margin-bottom: 36px;
+  font-size: clamp(36px, 5vw, 60px); line-height: 1; margin-bottom: 36px;
 }
 
 /* WEEK GRID */
-.week-grid {
-  display: grid; grid-template-columns: repeat(5,1fr); gap: 2px;
-}
+.week-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 2px; }
 .week-card {
   background: var(--surface); border: 1px solid var(--border);
   padding: 22px 14px; text-align: center;
   cursor: pointer; position: relative; overflow: hidden;
   transition: background .2s, border-color .2s, transform .15s;
 }
-.week-card:not(.rest):hover {
-  background: var(--surface2); border-color: var(--red);
-  transform: translateY(-2px);
-}
+.week-card:not(.rest):hover { background: var(--surface2); border-color: var(--red); transform: translateY(-2px); }
 .week-card::after {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-  height: 2px; background: var(--red);
-  transform: scaleX(0); transition: transform .25s;
+  height: 2px; background: var(--red); transform: scaleX(0); transition: transform .25s;
 }
 .week-card:not(.rest):hover::after { transform: scaleX(1); }
 .week-card.rest { opacity: .3; cursor: default; }
-.wc-day {
-  font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 9px;
-}
+.wc-day { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 9px; }
 .wc-icon { font-size: 22px; margin-bottom: 7px; display: block; }
-.wc-muscles {
-  font-family: var(--font-d); font-size: 15px;
-  letter-spacing: .04em; line-height: 1.2;
-}
+.wc-muscles { font-family: var(--font-d); font-size: 15px; letter-spacing: .04em; line-height: 1.2; }
 
 /* PROGRESSION */
-.prog-grid {
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 2px;
-}
-.prog-card {
-  background: var(--surface); border: 1px solid var(--border); padding: 24px;
-}
+.prog-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; }
+.prog-card { background: var(--surface); border: 1px solid var(--border); padding: 24px; }
 .prog-card.hi { border-color: rgba(255,43,31,.45); background: var(--red-glow); }
-.prog-week {
-  font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 8px;
-}
-.prog-reps {
-  font-family: var(--font-d); font-size: 44px; line-height: 1;
-  color: var(--white); margin-bottom: 4px;
-}
+.prog-week { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.prog-reps { font-family: var(--font-d); font-size: 44px; line-height: 1; color: var(--white); margin-bottom: 4px; }
 .prog-card.hi .prog-reps { color: var(--red); }
 .prog-note { font-size: 11px; color: var(--muted); font-style: italic; }
 .prog-card.hi .prog-note { color: rgba(255,43,31,.75); }
@@ -166,41 +140,64 @@ body {
   margin-bottom: 28px; padding-bottom: 18px;
   border-bottom: 1px solid var(--border);
 }
-.day-num {
-  font-family: var(--font-d); font-size: 76px;
-  color: var(--muted2); line-height: 1;
-}
-.day-label {
-  font-size: 9px; letter-spacing: .25em; text-transform: uppercase;
-  color: var(--red); font-weight: 600; margin-bottom: 4px;
-}
-.day-name {
-  font-family: var(--font-d);
-  font-size: clamp(26px, 4vw, 46px); line-height: 1;
-}
+.day-num { font-family: var(--font-d); font-size: 76px; color: var(--muted2); line-height: 1; }
+.day-label { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: var(--red); font-weight: 600; margin-bottom: 4px; }
+.day-name { font-family: var(--font-d); font-size: clamp(26px, 4vw, 46px); line-height: 1; }
 
 /* EXERCISE ROWS */
 .exercise-list { display: flex; flex-direction: column; gap: 2px; }
 .exercise-row {
   display: grid;
-  grid-template-columns: 1fr auto auto;
-  align-items: center; gap: 16px;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center; gap: 12px;
   background: var(--surface); border: 1px solid var(--border);
-  padding: 16px 20px;
+  padding: 14px 18px;
   transition: background .15s;
+  animation: fadeUp .22s ease both;
 }
 .exercise-row:hover { background: var(--surface2); }
-.ex-name { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 2px; }
+
+/* EDITABLE NAME */
+.ex-name {
+  font-size: 15px; font-weight: 500; color: var(--white);
+  margin-bottom: 2px; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  border-bottom: 1px dashed transparent;
+  transition: border-color .15s;
+}
+.ex-name:hover { border-bottom-color: rgba(255,255,255,.2); }
+.ex-name:hover .edit-icon { opacity: 1; }
+.edit-icon {
+  font-size: 11px; opacity: 0; transition: opacity .15s;
+  color: var(--muted); flex-shrink: 0;
+}
+.ex-name-input {
+  font-size: 15px; font-weight: 500; color: var(--white);
+  background: transparent;
+  border: none; border-bottom: 1px solid var(--red);
+  outline: none; width: 100%;
+  font-family: var(--font-b);
+  padding-bottom: 1px;
+}
+
 .ex-meta { font-size: 12px; color: var(--muted); font-weight: 300; }
 .ex-meta span { color: var(--yellow); font-weight: 500; }
 
-/* KG CONTROL */
-.kg-wrap {
-  display: flex; align-items: center;
-  border: 1px solid var(--border); background: var(--bg);
+/* DELETE BTN */
+.del-btn {
+  width: 28px; height: 28px; background: none;
+  border: 1px solid transparent; color: #333;
+  font-size: 16px; cursor: pointer; border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  transition: color .15s, border-color .15s, background .15s;
+  flex-shrink: 0;
 }
+.del-btn:hover { color: var(--red); border-color: rgba(255,43,31,.3); background: rgba(255,43,31,.06); }
+
+/* KG CONTROL */
+.kg-wrap { display: flex; align-items: center; border: 1px solid var(--border); background: var(--bg); flex-shrink: 0; }
 .kg-btn {
-  width: 32px; height: 36px; background: none; border: none;
+  width: 30px; height: 34px; background: none; border: none;
   color: var(--muted); font-size: 17px; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-b); line-height: 1;
@@ -208,7 +205,7 @@ body {
 }
 .kg-btn:hover { color: var(--white); background: var(--surface); }
 .kg-input {
-  width: 52px; height: 36px; background: none;
+  width: 50px; height: 34px; background: none;
   border: none;
   border-left: 1px solid var(--border); border-right: 1px solid var(--border);
   color: var(--white); text-align: center;
@@ -217,18 +214,89 @@ body {
 }
 .kg-input::-webkit-outer-spin-button,
 .kg-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-.kg-unit {
-  font-size: 10px; color: var(--muted);
-  padding: 0 8px; letter-spacing: .08em; text-transform: uppercase;
-}
+.kg-unit { font-size: 10px; color: var(--muted); padding: 0 7px; letter-spacing: .08em; text-transform: uppercase; }
 
 /* SAVED INDICATOR */
 .ex-saved {
-  font-size: 10px; color: transparent;
+  font-size: 10px; color: transparent; min-width: 48px;
   letter-spacing: .12em; text-transform: uppercase;
-  font-weight: 600; transition: color .35s; white-space: nowrap;
+  font-weight: 600; transition: color .35s; white-space: nowrap; text-align: right;
 }
 .ex-saved.show { color: var(--red); }
+
+/* ADD EXERCISE BUTTON */
+.add-ex-btn {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 4px;
+  width: 100%;
+  background: none;
+  border: 1px dashed #2a2a2a;
+  color: #3a3a3a;
+  padding: 14px 20px;
+  cursor: pointer;
+  font-family: var(--font-b); font-size: 13px;
+  letter-spacing: .1em; text-transform: uppercase;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.add-ex-btn:hover {
+  border-color: rgba(255,43,31,.4);
+  color: var(--red);
+  background: rgba(255,43,31,.04);
+}
+.add-ex-btn .plus-icon {
+  width: 22px; height: 22px;
+  border: 1px solid currentColor; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; line-height: 1; flex-shrink: 0;
+  transition: background .2s;
+}
+
+/* ADD MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(0,0,0,.75); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .2s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--surface); border: 1px solid #2a2a2a;
+  padding: 36px 32px; width: 90%; max-width: 420px;
+  transform: translateY(20px); transition: transform .25s cubic-bezier(.22,1,.36,1);
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-title {
+  font-family: var(--font-d); font-size: 32px;
+  color: var(--white); margin-bottom: 6px;
+}
+.modal-sub { font-size: 11px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 24px; }
+.modal label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+.modal input[type=text], .modal input[type=number] {
+  width: 100%; background: var(--bg); border: 1px solid var(--border);
+  color: var(--white); padding: 10px 14px; font-size: 14px;
+  font-family: var(--font-b); outline: none; margin-bottom: 18px;
+  transition: border-color .15s;
+}
+.modal input[type=text]:focus, .modal input[type=number]:focus { border-color: var(--red); }
+.modal input[type=number] { -moz-appearance: textfield; }
+.modal input[type=number]::-webkit-outer-spin-button,
+.modal input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+.modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.modal-actions { display: flex; gap: 10px; margin-top: 6px; }
+.btn-confirm {
+  flex: 1; padding: 12px; background: var(--red); border: none;
+  color: #fff; font-family: var(--font-d); font-size: 20px;
+  letter-spacing: .06em; cursor: pointer;
+  transition: opacity .15s;
+}
+.btn-confirm:hover { opacity: .85; }
+.btn-cancel {
+  padding: 12px 18px; background: none; border: 1px solid var(--border);
+  color: var(--muted); font-family: var(--font-b); font-size: 13px;
+  cursor: pointer; transition: border-color .15s, color .15s;
+}
+.btn-cancel:hover { border-color: var(--muted); color: var(--white); }
 
 /* TOAST */
 .toast {
@@ -249,27 +317,18 @@ footer {
   letter-spacing: .1em; text-transform: uppercase;
 }
 
-/* ANIMATIONS */
 @keyframes fadeUp {
-  from { opacity:0; transform:translateY(14px); }
+  from { opacity:0; transform:translateY(12px); }
   to   { opacity:1; transform:translateY(0); }
 }
-.day-block.visible .exercise-row { animation: fadeUp .22s ease both; }
-.day-block.visible .exercise-row:nth-child(1){animation-delay:.03s}
-.day-block.visible .exercise-row:nth-child(2){animation-delay:.06s}
-.day-block.visible .exercise-row:nth-child(3){animation-delay:.09s}
-.day-block.visible .exercise-row:nth-child(4){animation-delay:.12s}
-.day-block.visible .exercise-row:nth-child(5){animation-delay:.15s}
-.day-block.visible .exercise-row:nth-child(6){animation-delay:.18s}
-.day-block.visible .exercise-row:nth-child(7){animation-delay:.21s}
 
-/* RESPONSIVE */
 @media(max-width:680px){
-  .hero,.section,.days-section{padding-left:18px;padding-right:18px}
-  .week-grid{grid-template-columns:repeat(3,1fr)}
-  .prog-grid{grid-template-columns:repeat(2,1fr)}
-  .exercise-row{grid-template-columns:1fr;gap:10px}
-  .day-num{font-size:52px}
+  .hero,.section,.days-section{ padding-left:18px; padding-right:18px; }
+  .week-grid{ grid-template-columns:repeat(3,1fr); }
+  .prog-grid{ grid-template-columns:repeat(2,1fr); }
+  .exercise-row{ grid-template-columns:1fr auto; grid-template-rows:auto auto; gap:10px; }
+  .exercise-row .ex-saved{ display:none; }
+  .day-num{ font-size:52px; }
 }
 </style>
 </head>
@@ -371,6 +430,9 @@ footer {
       </div>
     </div>
     <div class="exercise-list" id="list-dia1"></div>
+    <button class="add-ex-btn" onclick="openModal('dia1')">
+      <span class="plus-icon">+</span> Adicionar exercício
+    </button>
   </div>
 
   <div class="day-block visible" id="dia2">
@@ -382,6 +444,9 @@ footer {
       </div>
     </div>
     <div class="exercise-list" id="list-dia2"></div>
+    <button class="add-ex-btn" onclick="openModal('dia2')">
+      <span class="plus-icon">+</span> Adicionar exercício
+    </button>
   </div>
 
   <div class="day-block visible" id="dia3">
@@ -393,6 +458,9 @@ footer {
       </div>
     </div>
     <div class="exercise-list" id="list-dia3"></div>
+    <button class="add-ex-btn" onclick="openModal('dia3')">
+      <span class="plus-icon">+</span> Adicionar exercício
+    </button>
   </div>
 
   <div class="day-block visible" id="dia4">
@@ -404,15 +472,43 @@ footer {
       </div>
     </div>
     <div class="exercise-list" id="list-dia4"></div>
+    <button class="add-ex-btn" onclick="openModal('dia4')">
+      <span class="plus-icon">+</span> Adicionar exercício
+    </button>
   </div>
 
 </div>
 
-<footer>Cargas salvas localmente no seu dispositivo · Treino 4 Dias Intermediário</footer>
-<div class="toast" id="toast">✓ Carga salva!</div>
+<footer>Dados salvos localmente no seu dispositivo · Clique no nome para editar · Treino 4 Dias Intermediário</footer>
+<div class="toast" id="toast"></div>
+
+<!-- ADD EXERCISE MODAL -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-title">Novo Exercício</div>
+    <div class="modal-sub" id="modal-day-label">–</div>
+    <label>Nome do exercício</label>
+    <input type="text" id="modal-name" placeholder="ex: Rosca Scott" />
+    <div class="modal-row">
+      <div>
+        <label>Séries</label>
+        <input type="text" id="modal-sets" placeholder="ex: 3 séries" />
+      </div>
+      <div>
+        <label>Repetições</label>
+        <input type="text" id="modal-reps" placeholder="ex: 12 → 8 reps" />
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="confirmAdd()">ADICIONAR</button>
+    </div>
+  </div>
+</div>
 
 <script>
-const TREINO = {
+// ─── BASE TREINO DATA ───────────────────────────────────────────────────────
+const BASE_TREINO = {
   dia1: [
     { id:'supino-reto',    name:'Supino Reto',          sets:'4 séries', reps:'12 → 8 reps' },
     { id:'supino-incl',    name:'Supino Inclinado',      sets:'3 séries', reps:'12 → 8 reps' },
@@ -448,42 +544,126 @@ const TREINO = {
   ],
 };
 
-// Storage
-function getKg(id) { return parseFloat(localStorage.getItem('kg_' + id)) || 0; }
-function setKg(id, val) { localStorage.setItem('kg_' + id, val); }
+const DAY_LABELS = {
+  dia1: 'Dia 1 – Peito + Tríceps',
+  dia2: 'Dia 2 – Costas + Bíceps',
+  dia3: 'Dia 3 – Pernas',
+  dia4: 'Dia 4 – Ombro + Abdômen',
+};
 
-// Build rows
+// ─── STORAGE HELPERS ────────────────────────────────────────────────────────
+function getKg(id)       { return parseFloat(localStorage.getItem('kg_' + id)) || 0; }
+function setKg(id, val)  { localStorage.setItem('kg_' + id, val); }
+function getName(id, fallback) { return localStorage.getItem('name_' + id) || fallback; }
+function setName(id, val)      { localStorage.setItem('name_' + id, val); }
+
+// Load/save extra exercises per day
+function getExtras(day)       { return JSON.parse(localStorage.getItem('extras_' + day) || '[]'); }
+function saveExtras(day, arr) { localStorage.setItem('extras_' + day, JSON.stringify(arr)); }
+
+// ─── BUILD EXERCISE ROW ─────────────────────────────────────────────────────
+function buildRow(ex, day, isExtra) {
+  const kg   = getKg(ex.id);
+  const name = getName(ex.id, ex.name);
+
+  const row = document.createElement('div');
+  row.className = 'exercise-row';
+  row.dataset.id  = ex.id;
+  row.dataset.day = day;
+
+  row.innerHTML = `
+    <div class="ex-info">
+      <div class="ex-name" title="Clique para renomear" onclick="startEdit(this, '${ex.id}')">
+        <span class="name-text">${escHtml(name)}</span>
+        <span class="edit-icon">✎</span>
+      </div>
+      <div class="ex-meta">${escHtml(ex.sets)} &nbsp;·&nbsp; <span>${escHtml(ex.reps)}</span></div>
+    </div>
+    <div class="kg-wrap">
+      <button class="kg-btn" onclick="changeKg('${ex.id}',-2.5)">−</button>
+      <input class="kg-input" type="number" id="kg-${ex.id}"
+        value="${kg}" min="0" step="2.5"
+        onchange="saveKg('${ex.id}')" oninput="saveKg('${ex.id}')">
+      <div class="kg-unit">kg</div>
+      <button class="kg-btn" onclick="changeKg('${ex.id}',2.5)">+</button>
+    </div>
+    <div class="ex-saved" id="saved-${ex.id}">salvo ✓</div>
+    <button class="del-btn" title="Remover" onclick="removeRow(this, '${ex.id}', '${day}', ${isExtra})">✕</button>
+  `;
+  return row;
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ─── EDIT NAME IN-LINE ───────────────────────────────────────────────────────
+function startEdit(nameEl, id) {
+  if (nameEl.querySelector('input')) return; // already editing
+  const textSpan = nameEl.querySelector('.name-text');
+  const currentName = textSpan.textContent;
+
+  const input = document.createElement('input');
+  input.className = 'ex-name-input';
+  input.type = 'text';
+  input.value = currentName;
+
+  nameEl.replaceWith(input);
+  input.focus();
+  input.select();
+
+  function commit() {
+    const newName = input.value.trim() || currentName;
+    setName(id, newName);
+
+    const newNameEl = document.createElement('div');
+    newNameEl.className = 'ex-name';
+    newNameEl.title = 'Clique para renomear';
+    newNameEl.onclick = function() { startEdit(this, id); };
+    newNameEl.innerHTML = `<span class="name-text">${escHtml(newName)}</span><span class="edit-icon">✎</span>`;
+    input.replaceWith(newNameEl);
+    showToast('✓ Nome atualizado!');
+  }
+
+  input.addEventListener('blur', commit);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+    if (e.key === 'Escape') { input.value = currentName; input.blur(); }
+  });
+}
+
+// ─── BUILD ALL LISTS ─────────────────────────────────────────────────────────
 function buildLists() {
-  for (const [day, exs] of Object.entries(TREINO)) {
+  for (const [day, exs] of Object.entries(BASE_TREINO)) {
     const list = document.getElementById('list-' + day);
-    exs.forEach(ex => {
-      const kg = getKg(ex.id);
-      const row = document.createElement('div');
-      row.className = 'exercise-row';
-      row.innerHTML = `
-        <div class="ex-info">
-          <div class="ex-name">${ex.name}</div>
-          <div class="ex-meta">${ex.sets} &nbsp;·&nbsp; <span>${ex.reps}</span></div>
-        </div>
-        <div class="kg-wrap">
-          <button class="kg-btn" onclick="changeKg('${ex.id}',-2.5)">−</button>
-          <input class="kg-input" type="number" id="kg-${ex.id}"
-            value="${kg}" min="0" step="2.5"
-            onchange="saveKg('${ex.id}')" oninput="saveKg('${ex.id}')">
-          <div class="kg-unit">kg</div>
-          <button class="kg-btn" onclick="changeKg('${ex.id}',2.5)">+</button>
-        </div>
-        <div class="ex-saved" id="saved-${ex.id}">salvo ✓</div>
-      `;
-      list.appendChild(row);
-    });
+    exs.forEach(ex => list.appendChild(buildRow(ex, day, false)));
+
+    // extras from storage
+    getExtras(day).forEach(ex => list.appendChild(buildRow(ex, day, true)));
   }
 }
 
-// Actions
+// ─── REMOVE ROW ──────────────────────────────────────────────────────────────
+function removeRow(btn, id, day, isExtra) {
+  const row = btn.closest('.exercise-row');
+
+  if (isExtra) {
+    const extras = getExtras(day).filter(e => e.id !== id);
+    saveExtras(day, extras);
+  }
+
+  row.style.transition = 'opacity .2s, transform .2s';
+  row.style.opacity = '0';
+  row.style.transform = 'translateX(12px)';
+  setTimeout(() => row.remove(), 200);
+  showToast('Exercício removido.');
+}
+
+// ─── KG ACTIONS ─────────────────────────────────────────────────────────────
 let toastTimer;
-function showToast() {
+function showToast(msg) {
   const t = document.getElementById('toast');
+  t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
@@ -496,9 +676,8 @@ function saveKg(id) {
   input.value = val;
   setKg(id, val);
   const el = document.getElementById('saved-' + id);
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 1500);
-  showToast();
+  if (el) { el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 1400); }
+  showToast('✓ Carga salva!');
 }
 
 function changeKg(id, delta) {
@@ -508,7 +687,59 @@ function changeKg(id, delta) {
   saveKg(id);
 }
 
-// Nav / filter
+// ─── ADD EXERCISE MODAL ──────────────────────────────────────────────────────
+let modalTargetDay = null;
+
+function openModal(day) {
+  modalTargetDay = day;
+  document.getElementById('modal-day-label').textContent = DAY_LABELS[day] || day;
+  document.getElementById('modal-name').value = '';
+  document.getElementById('modal-sets').value = '3 séries';
+  document.getElementById('modal-reps').value = '12 → 10 reps';
+  document.getElementById('modal').classList.add('open');
+  setTimeout(() => document.getElementById('modal-name').focus(), 120);
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  modalTargetDay = null;
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal')) closeModal();
+}
+
+function confirmAdd() {
+  const name = document.getElementById('modal-name').value.trim();
+  if (!name) { document.getElementById('modal-name').focus(); return; }
+
+  const sets = document.getElementById('modal-sets').value.trim() || '3 séries';
+  const reps = document.getElementById('modal-reps').value.trim() || '–';
+  const id   = 'custom-' + Date.now();
+  const ex   = { id, name, sets, reps };
+
+  const extras = getExtras(modalTargetDay);
+  extras.push(ex);
+  saveExtras(modalTargetDay, extras);
+
+  const list = document.getElementById('list-' + modalTargetDay);
+  const row  = buildRow(ex, modalTargetDay, true);
+  list.appendChild(row);
+
+  closeModal();
+  showToast('✓ Exercício adicionado!');
+}
+
+// Allow Enter to submit modal
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('modal').classList.contains('open')) {
+    const focused = document.activeElement;
+    if (focused && focused.id !== 'modal-name') confirmAdd();
+  }
+  if (e.key === 'Escape') closeModal();
+});
+
+// ─── NAV / FILTER ────────────────────────────────────────────────────────────
 function showDay(which) {
   ['dia1','dia2','dia3','dia4'].forEach(d => {
     document.getElementById(d).classList.toggle('visible', which === 'all' || which === d);
@@ -521,6 +752,7 @@ function showDay(which) {
   }
 }
 
+// ─── INIT ────────────────────────────────────────────────────────────────────
 buildLists();
 </script>
 </body>
