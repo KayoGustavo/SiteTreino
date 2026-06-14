@@ -156,6 +156,16 @@ body {
   animation: fadeUp .22s ease both;
 }
 .exercise-row:hover { background: var(--surface2); }
+.exercise-row.optional { border-style: dashed; border-color: #333; }
+.exercise-row.optional .ex-meta { color: #777; }
+
+/* OPTIONAL BADGE */
+.ex-badge {
+  display: inline-block; font-size: 9px; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--yellow);
+  border: 1px solid rgba(245,200,66,.35); padding: 2px 7px;
+  margin-left: 8px; vertical-align: middle; font-weight: 600;
+}
 
 /* EDITABLE NAME */
 .ex-name {
@@ -344,6 +354,7 @@ footer {
     <span class="t3">INTERMEDIÁRIO</span>
   </h1>
   <p class="hero-sub">Divisão semanal · Progressão por sobrecarga</p>
+  <a href="dashboard.html" style="display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#555;text-decoration:none;margin-top:22px;position:relative;transition:color .15s;" onmouseover="this.style.color='#ff2b1f'" onmouseout="this.style.color='#555'">📊 Ver progresso →</a>
 </div>
 
 <!-- NAV -->
@@ -508,39 +519,44 @@ footer {
 
 <script>
 // ─── BASE TREINO DATA ───────────────────────────────────────────────────────
+// Atualizado conforme revisão do treino:
+// Dia 1: removido Crucifixo (manter apenas Crossover), Paralela marcada como opcional
+// Dia 2: removida Rosca Alternada, adicionado Pulldown (opcional)
+// Dia 3: Flexora marcada como alternável com Stiff (Stiff opcional adicionado)
+// Dia 4: removida Elevação Frontal, adicionados Rosca Scott e Tríceps Corda, Elevação Lateral 3→4 séries
 const BASE_TREINO = {
   dia1: [
     { id:'supino-reto',    name:'Supino Reto',          sets:'4 séries', reps:'12 → 8 reps' },
     { id:'supino-incl',    name:'Supino Inclinado',      sets:'3 séries', reps:'12 → 8 reps' },
-    { id:'crucifixo',      name:'Crucifixo',             sets:'3 séries', reps:'12 → 10 reps' },
     { id:'crossover',      name:'Crossover',             sets:'3 séries', reps:'12 → 10 reps' },
     { id:'tri-corda',      name:'Tríceps Corda',         sets:'3 séries', reps:'12 → 8 reps' },
     { id:'tri-testa',      name:'Tríceps Testa',         sets:'3 séries', reps:'10 → 8 reps' },
-    { id:'paralela',       name:'Paralela',              sets:'3 séries', reps:'até a falha' },
+    { id:'paralela',       name:'Paralela',              sets:'2 séries', reps:'até próximo da falha', optional:true },
   ],
   dia2: [
     { id:'puxada',         name:'Puxada na Frente',      sets:'4 séries', reps:'12 → 8 reps' },
     { id:'remada-curv',    name:'Remada Curvada',        sets:'3 séries', reps:'10 → 8 reps' },
     { id:'remada-baixa',   name:'Remada Baixa',          sets:'3 séries', reps:'12 → 8 reps' },
-    { id:'pulldown',       name:'Pulldown',              sets:'3 séries', reps:'12 → 10 reps' },
+    { id:'pulldown',       name:'Pulldown',              sets:'3 séries', reps:'12 → 10 reps', optional:true },
     { id:'rosca-direta',   name:'Rosca Direta',          sets:'3 séries', reps:'12 → 8 reps' },
-    { id:'rosca-alt',      name:'Rosca Alternada',       sets:'3 séries', reps:'10 → 8 reps' },
     { id:'rosca-martelo',  name:'Rosca Martelo',         sets:'3 séries', reps:'10 → 8 reps' },
   ],
   dia3: [
     { id:'agachamento',    name:'Agachamento',           sets:'4 séries', reps:'12 → 6 reps' },
     { id:'leg-press',      name:'Leg Press',             sets:'3 séries', reps:'12 → 8 reps' },
     { id:'extensora',      name:'Extensora',             sets:'3 séries', reps:'12 → 10 reps' },
-    { id:'flexora',        name:'Flexora',               sets:'3 séries', reps:'12 → 10 reps' },
+    { id:'flexora',        name:'Flexora (sem. A)',      sets:'3 séries', reps:'12 → 10 reps' },
+    { id:'stiff',          name:'Stiff (sem. B)',        sets:'3 séries', reps:'12 → 10 reps', optional:true },
     { id:'panturrilha',    name:'Panturrilha',           sets:'4 séries', reps:'15 → 10 reps' },
   ],
   dia4: [
     { id:'desenvolvimento',name:'Desenvolvimento',       sets:'4 séries', reps:'12 → 8 reps' },
-    { id:'elev-lateral',   name:'Elevação Lateral',      sets:'3 séries', reps:'12 → 10 reps' },
-    { id:'elev-frontal',   name:'Elevação Frontal',      sets:'3 séries', reps:'12 → 10 reps' },
+    { id:'elev-lateral',   name:'Elevação Lateral',      sets:'4 séries', reps:'12 → 10 reps' },
     { id:'cruc-inv',       name:'Crucifixo Inverso',     sets:'3 séries', reps:'12 → 10 reps' },
-    { id:'abdominal',      name:'Abdominal infra/supra', sets:'3 séries', reps:'15–20 reps' },
+    { id:'rosca-scott',    name:'Rosca Scott',           sets:'3 séries', reps:'12 → 8 reps' },
+    { id:'tri-corda-d4',   name:'Tríceps Corda',         sets:'3 séries', reps:'12 → 8 reps' },
     { id:'prancha',        name:'Prancha',               sets:'3 séries', reps:'30–60 segundos' },
+    { id:'abdominal',      name:'Abdominal infra/supra', sets:'3 séries', reps:'15–20 reps' },
   ],
 };
 
@@ -565,9 +581,10 @@ function saveExtras(day, arr) { localStorage.setItem('extras_' + day, JSON.strin
 function buildRow(ex, day, isExtra) {
   const kg   = getKg(ex.id);
   const name = getName(ex.id, ex.name);
+  const optionalBadge = ex.optional ? '<span class="ex-badge">Opcional</span>' : '';
 
   const row = document.createElement('div');
-  row.className = 'exercise-row';
+  row.className = 'exercise-row' + (ex.optional ? ' optional' : '');
   row.dataset.id  = ex.id;
   row.dataset.day = day;
 
@@ -576,6 +593,7 @@ function buildRow(ex, day, isExtra) {
       <div class="ex-name" title="Clique para renomear" onclick="startEdit(this, '${ex.id}')">
         <span class="name-text">${escHtml(name)}</span>
         <span class="edit-icon">✎</span>
+        ${optionalBadge}
       </div>
       <div class="ex-meta">${escHtml(ex.sets)} &nbsp;·&nbsp; <span>${escHtml(ex.reps)}</span></div>
     </div>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DASHBOARD · PROGRESSO</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="dashboard-style.css">
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge">Acompanhamento Mensal</div>
+  <h1 class="hero-title">
+    <span class="t1">MEU</span>
+    <span class="t2">PROGRESSO</span>
+  </h1>
+  <p class="hero-sub">Frequência de treino · Evolução de peso</p>
+  <a href="treino4dias.html" class="back-link">← Voltar ao treino</a>
+</div>
+
+<!-- OVERVIEW STATS -->
+<div class="section">
+  <div class="eyebrow">Resumo</div>
+  <div class="sec-title">Visão Geral</div>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Treinos no mês</div>
+      <div class="stat-value accent" id="stat-month-count">0</div>
+      <div class="stat-sub">dias marcados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Sequência atual</div>
+      <div class="stat-value" id="stat-streak">0</div>
+      <div class="stat-sub">dias seguidos</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Peso atual</div>
+      <div class="stat-value" id="stat-current-weight">–</div>
+      <div class="stat-sub" id="stat-weight-diff">sem registros</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Meta</div>
+      <div class="stat-value" id="stat-goal-display">–</div>
+      <div class="stat-sub">defina abaixo</div>
+    </div>
+  </div>
+</div>
+
+<!-- DONUT / ADESÃO -->
+<div class="section">
+  <div class="eyebrow">Adesão</div>
+  <div class="sec-title">Frequência do Mês</div>
+  <div class="donut-wrap">
+    <svg class="donut-svg" width="180" height="180" viewBox="0 0 180 180" id="donut-svg"></svg>
+    <div class="donut-legend" id="donut-legend"></div>
+  </div>
+</div>
+
+<!-- CALENDÁRIO -->
+<div class="section">
+  <div class="eyebrow">Calendário</div>
+  <div class="sec-title">Marque seus treinos</div>
+  <div class="cal-header">
+    <button class="cal-nav-btn" id="cal-prev">‹</button>
+    <div class="cal-month-label" id="cal-month-label">–</div>
+    <button class="cal-nav-btn" id="cal-next">›</button>
+  </div>
+  <div class="cal-grid" id="cal-grid"></div>
+  <div class="cal-legend">
+    <div class="cal-legend-item"><div class="cal-legend-box trained"></div> Dia treinado</div>
+    <div class="cal-legend-item"><div class="cal-legend-box today"></div> Hoje</div>
+    <div class="cal-legend-item"><div class="cal-legend-box"></div> Sem treino</div>
+  </div>
+</div>
+
+<!-- PESO -->
+<div class="section">
+  <div class="eyebrow">Evolução</div>
+  <div class="sec-title">Registro de Peso</div>
+
+  <div class="weight-form">
+    <div>
+      <label>Data</label>
+      <input type="date" id="weight-date">
+    </div>
+    <div>
+      <label>Peso (kg)</label>
+      <input type="number" id="weight-kg" placeholder="ex: 84.5" step="0.1" min="0">
+    </div>
+    <button class="btn-add-weight" id="btn-add-weight">REGISTRAR</button>
+  </div>
+
+  <div class="chart-wrap" id="chart-wrap"></div>
+
+  <!-- META -->
+  <div class="weight-form" style="margin-top:28px; margin-bottom:0;">
+    <div>
+      <label>Meta de peso (kg)</label>
+      <input type="number" id="goal-kg-input" placeholder="ex: 81" step="0.1" min="0">
+    </div>
+    <div></div>
+    <button class="btn-add-weight" id="btn-set-goal">SALVAR META</button>
+  </div>
+
+  <div class="goal-wrap" id="goal-wrap" style="display:none;">
+    <div class="goal-labels">
+      <div>Início: <span id="goal-start-label">–</span></div>
+      <div>Atual: <span id="goal-current-label">–</span></div>
+      <div>Meta: <span id="goal-target-label">–</span></div>
+    </div>
+    <div class="goal-bar-track">
+      <div class="goal-bar-fill" id="goal-bar-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="weight-log">
+    <div class="weight-log-title">Histórico</div>
+    <div id="weight-log-list"></div>
+  </div>
+</div>
+
+<footer>Dados salvos localmente no seu dispositivo · Dashboard de Progresso</footer>
+<div class="toast" id="toast"></div>
+
+<script src="dashboard-script.js"></script>
+</body>
+</html>
